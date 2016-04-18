@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+	<metadata>
+		<id>eIDBelgium</id>
+		<title>eID Belgium</title>
+		<version>4.1.13</version>
+		<authors>Fedict</authors>
+		<owners>Chris Vanclercq</owners>
+		<summary>Middleware for the Belgian electronic identity card</summary>
+		<description>Middleware for the Belgian electronic identity card</description>
+		<projectUrl>http://eid.belgium.be/en/using_your_eid/installing_the_eid_software/windows</projectUrl>
+		<packageSourceUrl>https://github.com/Vanclec/chocolatey-eIDBelgium</packageSourceUrl>
+		<tags>belgium eid middleware identity card admin</tags>
+		<copyright>http://eid.belgium.be/en/using_your_eid/installing_the_eid_software/windows/</copyright>
+		<licenseUrl>http://eid.belgium.be/en/using_your_eid/installing_the_eid_software/windows/</licenseUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<iconUrl>http://eid.belgium.be/sites/default/files/downloads/Banner_QI.jpg</iconUrl>
+		<dependencies>
+			<dependency id="jre8" />
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="tools\**" target="tools" />
+	</files>
+</package>
