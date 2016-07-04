@@ -1,29 +1,34 @@
-﻿$ErrorActionPreference = 'Stop';
+﻿$ErrorActionPreference	= 'Stop';
+$packageName			= 'eid-belgium';
+$softwareName			= 'e-ID middleware*';
+$installerType			= 'MSI' ;
+$silentArgs				= '/qn /norestart';
+$validExitCodes			= @(0, 3010, 1605, 1614, 1641);
+$uninstalled			= $False;
+[array]$key				= Get-UninstallRegistryKey -SoftwareName $softwareName;
 
-# Données utilisées au sein de l'installeur
-$packageName	= 'eIDBelgium';
-$installerType	= 'msi';
-$silentArgs		= '/qr /norestart';
-$validExitCodes = @(0,3010); # 0 : success. 3010 : redémarrage requis.
+If ($key.Count -eq 1) {
+	$key | % {
+		$file = "$($_.UninstallString)";
 
-# Tentative de désinstallation des éléments du package
-Try {
-	# Récupération du GUID du package
-	$packageGuid = Get-ChildItem HKLM:\SOFTWARE\Classes\Installer\Products |
-		Get-ItemProperty -Name 'ProductName' |
-		? { $_.ProductName -Like '*e-ID middleware*' } |
-		Select -ExpandProperty PSChildName -First 1;
-	
-	# Récupération du fichier servant à la désinstallation du package
-	$InstallProperties = Get-ItemProperty HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\$packageGuid\InstallProperties;
-	$uninstallFile = $InstallProperties.LocalPackage;
-	
-	# Désinstallation du package
-	$msiArgs = "/x $uninstallFile $silentArgs";
-	Start-ChocolateyProcessAsAdmin "$msiArgs" 'msiexec' -validExitCodes $validExitCodes;
+		if ($installerType -eq 'MSI') {
+			$silentArgs = "$($_.PSChildName) $silentArgs";
+			$file = '';
+		}
+
+		Uninstall-ChocolateyPackage -PackageName $packageName `
+									-FileType $installerType `
+									-SilentArgs "$silentArgs" `
+									-ValidExitCodes $validExitCodes `
+									-File "$file"
+	}
 }
-
-# Quelque chose s'est mal passé, retour avec affichage d'erreur
-Catch {
-	Throw $_.Exception;
+Elseif ($key.Count -eq 0) {
+	Write-Warning "$packageName has already been uninstalled by other means.";
+}
+Elseif ($key.Count -gt 1) {
+	Write-Warning "$key.Count matches found!"
+	Write-Warning "To prevent accidental data loss, no programs will be uninstalled.";
+	Write-Warning "Please alert package maintainer the following keys were matched:";
+	$key | % {Write-Warning "- $_.DisplayName"};
 }
