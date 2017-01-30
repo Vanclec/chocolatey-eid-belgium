@@ -4,7 +4,7 @@
 	<metadata>
 		<id>eid-belgium</id>
 		<title>eID Belgium</title>
-		<version>4.1.18</version>
+		<version>4.1.20</version>
 		<authors>Fedict</authors>
 		<owners>Chris Vanclercq</owners>
 		<summary>Middleware for the Belgian electronic identity card</summary>

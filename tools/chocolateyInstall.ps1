@@ -1,8 +1,8 @@
 ﻿$ErrorActionPreference	= 'Stop';
 $packageName			= 'eid-belgium';
 $toolsDir				= ($(Split-Path -Parent $MyInvocation.MyCommand.Definition) + '\');
-$url					= 'https://downloads.services.belgium.be/eid/BeidMW_32_4.1.18.msi';
-$url64					= 'https://downloads.services.belgium.be/eid/BeidMW_64_4.1.18.msi';
+$url					= 'http://eid.belgium.be/sites/default/files/downloads/BeidMW_32_4.1.20.msi';
+$url64					= 'http://eid.belgium.be/sites/default/files/downloads/BeidMW_64_4.1.20.msi';
 
 $packageArgs = @{
 	packageName		= $packageName
