@@ -11,5 +11,8 @@ choco install eid-belgium
 
 The install process will install the eID Belgium middleware in seconds.
 
+## Problems and bugs reports
+You can report bugs or installation problems by accessing the package's gallery page, than simply use the built-in Disqus widget or the *Contact Maintainers* link from the left menu.
+
 ---
 [Chris Vanclercq](https://vanclercq.me), 2016-2017.
